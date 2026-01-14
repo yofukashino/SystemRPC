@@ -1,19 +1,19 @@
-import { RPC, start } from "../index";
-import utils from "../utils";
+import { RPC, start } from "@rpc";
+import Utils from "@Utils";
 
 export default (interval: NodeJS.Timeout): void => {
   RPC?.server.on("disconnected", () => {
     RPC.active = false;
     void RPC.server.destroy();
     if (interval) clearInterval(interval);
-    utils.logger.connectionClosed();
+    Utils.logger.connectionClosed();
     const reconnectInterval = setInterval(async () => {
       try {
         await start(0);
         clearInterval(reconnectInterval);
       } catch {
         console.clear();
-        utils.logger.connectionClosed();
+        Utils.logger.connectionClosed();
       }
     }, 1.5 * 10000);
   });

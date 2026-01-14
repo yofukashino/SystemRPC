@@ -37,19 +37,19 @@ rules:
   "@typescript-eslint/no-unused-vars": error
 
 overrides:
-  - files: "**/*.ts"
+  - files: "src/*.ts"
     extends: eslint-config-dmitmel/presets/typescript-addon
     rules:
       node/no-missing-import: off
       eqeqeq: off
-      \@typescript-eslint/no-dynamic-delete: off
+      "@typescript-eslint/no-dynamic-delete": off
       no-return-assign: off
       no-void: off
       consistent-return: off
       camelcase: off
       "@typescript-eslint/naming-convention": off
 
-  - files: "**/src/**/*.ts"
+  - files: "main/**/**/*.ts"
     extends: eslint-config-dmitmel/rules/typescript/with-type-checking
     rules:
       camelcase: off
@@ -58,6 +58,26 @@ overrides:
     rules:
       no-var: off
 
-  - files: "src/**/*.ts"
+  - files: "renderer/**/**/*.ts"
+    extends: eslint-config-dmitmel/rules/typescript/with-type-checking
+    rules:
+      camelcase: off
+      "@typescript-eslint/no-unnecessary-condition": off
+  - files: "**/*.d.ts"
+    rules:
+      no-var: off
+
+  - files: "src/renderer/**/*.ts"
     parserOptions:
       project: tsconfig.json
+  - files: "src/main/**/*.ts"
+    parserOptions:
+      project: tsconfig.json
+  - files: "src/renderer/**/*.tsx"
+    parserOptions:
+      project: tsconfig.json
+  - files: "src/rpc/**/*.ts"
+    rules:
+      no-undefined: off
+    parserOptions:
+      project: src/rpc/tsconfig.json

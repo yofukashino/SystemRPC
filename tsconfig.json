@@ -1,23 +1,32 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "module": "ES2022", // or "commonjs" if you prefer CommonJS modules
+    "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "lib": ["es2020", "ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "allowJs": true,
-    "outDir": "./build",
-    "strict": true,
+    "rootDir": "src" /* Specify the root folder within your source files. */,
+    "baseUrl": ".",
+    "outDir": "./dist-electron",
+    "strict": false,
     "noEmit": false,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "checkJs": true,
+    "noEmitOnError": true,
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@rpc": ["src/rpc/index.ts"],
+      "@rpc/*": ["src/rpc/*"],
+      "@Events": ["src/rpc/events/index.ts"],
+      "@Utils": ["src/rpc/utils/index.ts"],
+      "@config-default": ["src/config.json"],
+      "@config": ["src/rpc/config.ts"]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"],
-  "ts-node": {
-    "esm": true
-  }
+  "include": ["src/main", "src/rpc", "src/renderer"],
+  "exclude": ["node_modules", "public", "dist-electorn", "build"]
 }

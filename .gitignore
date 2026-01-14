@@ -104,3 +104,13 @@ dist
 .tern-port
 
 /bundle
+
+/dist-electron
+
+/dist-rpc
+
+/dist
+
+/.vscode
+
+/build

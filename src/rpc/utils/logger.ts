@@ -30,8 +30,10 @@ export const loginSuccess = (userName: string | undefined): void => {
 export const loginFailed = (retry?: number): void => {
   const title = chalk.bold.red("Login Failed");
   const message =
-    retry == 0 || retry
-      ? `${title}\n${chalk.green("Retrying in")} ${chalk.cyan(`${((retry <= 5 ? retry : 5) + 1) * 10000}`)}ms`
+    retry === 0 || retry
+      ? `${title}\n${chalk.green("Retrying in")} ${chalk.cyan(
+          `${((retry <= 5 ? retry : 5) + 1) * 10000}`,
+        )}ms`
       : `${title}\n${chalk.red("Exiting Process")}`;
   const boxedMessage = boxen(message, logStyle);
   console.log(boxedMessage);
@@ -44,4 +46,11 @@ export const connectionClosed = (): void => {
   console.log(boxedMessage);
 };
 
-export default { logAuth, loginSuccess, loginFailed, connectionClosed };
+export const flatpakFix = (): void => {
+  const title = chalk.bold.yellow("FLATPAK DETECTED");
+  const message = `${title}\n${chalk.green("Implementing Symlink Fix")}`;
+  const boxedMessage = boxen(message, logStyle);
+  console.log(boxedMessage);
+};
+
+export default { logAuth, loginSuccess, loginFailed, connectionClosed, flatpakFix };

@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "strict": false,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "checkJs": true,
+    "outDir": "../../dist-rpc",
+    "rootDir": "../../src/rpc",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "module": "CommonJS",
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "paths": {
+      "@rpc": ["./index.ts"],
+      "@Events": ["./events/index.ts"],
+      "@Utils": ["./utils/index.ts"],
+      "@config-default": ["../config.json"],
+      "@config": ["./config.ts"]
+    }
+  }
+}

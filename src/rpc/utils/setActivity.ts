@@ -1,8 +1,8 @@
 import systemInfo from "systeminformation";
 import os from "node:os";
-import utils from "./index";
-import { RPC } from "../index";
-import { buttons, largeImage, smallImage, timestamp } from "../../config.json";
+import Utils from "@Utils";
+import { RPC } from "@rpc";
+import { buttons, largeImage, smallImage, timestamp } from "@config";
 const cachedInfo = {} as {
   cpu: systemInfo.Systeminformation.CpuData;
   osInfo: systemInfo.Systeminformation.OsData;
@@ -26,9 +26,9 @@ export default async (): Promise<void> => {
       largeImage ||
       "https://cdn.discordapp.com/banners/1183807775357272114/a_2985df25876f80d1365798bd7205ef8a.gif?size=1024", // Set your large image key here
     smallImageText: `${cachedInfo.osInfo.distro} ${cachedInfo.osInfo.release}`,
-    smallImageKey: smallImage || (await utils.getPlatform()), // Set your small image key here
+    smallImageKey: smallImage || (await Utils.getPlatform()), // Set your small image key here
     buttons,
-    startTimestamp: timestamp ? cachedInfo.startTime : void 0,
+    startTimestamp: timestamp ? cachedInfo.startTime : undefined,
     instance: false,
   });
 };

@@ -2,17 +2,35 @@
   "name": "systemrpc",
   "version": "0.0.1",
   "description": "System info in discord rpc.",
-  "main": "./src/index.ts",
+  "homepage": ".",
+  "main": "dist-electron/src/main/index.js",
+  "build": {
+    "extends": null,
+    "files": [
+      "dist-electorn/src/main/*",
+      "build/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
   },
   "packageManager": "pnpm@9.4.0",
   "scripts": {
-    "build": "node build.js",
-    "watch": "node build.js --watch",
-    "start": "node dist/index",
-    "test": "node build.js && node dist/index",
+    "build:rpc": "node build-rpc.js",
+    "watch:rpc": "node build-rpc.js --watch",
+    "start:rpc": "node dist-rpc/index",
+    "test:rpc": "node build.js && node dist-rpc/index",
+    "start:react": "react-scripts start",
+    "build:react": "react-scripts build",
+    "test:react": "react-scripts test",
+    "eject:react": "react-scripts eject",
+    "dev:electron": "concurrently \"cross-env BROWSER=none pnpm start:react\" \"wait-on http://127.0.0.1:3000 && tsc -w\" \"wait-on http://127.0.0.1:3000 && tsc-alias -w \" \"wait-on http://127.0.0.1:3000 && tsc && tsc-alias && pnpm electron dist-electron/main/ \"",
+    "build:electron": "pnpm build:react && tsc && tsc-alias && electron-builder",
+    "postinstall": "electron-builder install-app-deps",
     "typescript:check": "tsc --noEmit",
     "prettier:check": "prettier ./src --check",
     "eslint:check": "eslint ./src",
@@ -32,22 +50,61 @@
   "license": "CC0-1.0",
   "dependencies": {
     "@marshift/argus": "^1.0.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/electron-devtools-installer": "^2.2.5",
+    "@types/react-dom": "^18.3.0",
     "discord-rpc": "^4.0.1",
+    "electorn": "0.0.1-security",
+    "electron-devtools-installer": "^3.2.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-reload": "2.0.0-alpha.1",
     "esbuild": "^0.23.0",
+    "module-alias": "^2.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
     "systeminformation": "^5.22.11",
-    "ts-node": "^10.9.2"
+    "tsc-alias": "^1.8.16",
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@types/discord-rpc": "^4.0.8",
-    "@types/node": "^20.14.11",
-    "@typescript-eslint/eslint-plugin": "^7.17.0",
-    "@typescript-eslint/parser": "^7.13.1",
+    "@types/node": "^18.18.6",
+    "@types/react": "^18.2.31",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
     "boxen": "^8.0.0",
     "chalk": "^5.3.0",
-    "eslint": "^8.57.0",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.2.1",
+    "electron-builder": "^24.13.3",
+    "eslint": "^8.52.0",
     "eslint-config-dmitmel": "github:dmitmel/eslint-config-dmitmel",
     "eslint-plugin-node": "^11.1.0",
-    "prettier": "^3.3.2",
-    "typescript": "^5.4.5"
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "^2.8.8",
+    "typescript": "^5.2.2",
+    "wait-on": "^7.2.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
